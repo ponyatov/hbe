@@ -55,7 +55,16 @@ install: doc gz
 update:
 	sudo apt update
 	sudo apt install -uy `cat apt.txt`
-gz:
+
+gz: ref
+
+.PHONY: ref
+ref: ref/strongtalk/vm/oops/klass.hpp
+ref/strongtalk/vm/oops/klass.hpp: $(GZ)/StrongtalkV2.zip
+	unzip -d ref $< && touch $@
+
+$(GZ)/StrongtalkV2.zip:
+	$(CURL) $@ https://storage.googleapis.com/google-code-archive-source/v2/code.google.com/strongtalk/source-archive.zip
 
 # merge
 MERGE += Makefile README.md LICENSE apt.txt $(D)

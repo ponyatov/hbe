@@ -9,13 +9,11 @@
     "targetPath":    "bin",
     "dependencies": {
         "pegged": "~>0.4.9",
-        "bindbc-sdl": "~>1.4.4"
-    },
-    "subConfigurations": {
-        "bindbc-sdl": "static"
+        "llvm-d": "~>3.0.0",
+        "xlib-d": "~>0.3.0"
     },
     "libs": [
-        "SDL2", "SDL2_ttf"
+        "x11"
     ],
     "stringImportPaths": [
         "/usr/share/fonts/truetype"

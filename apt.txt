@@ -2,3 +2,4 @@ git make curl
 code meld doxygen clang-format
 g++ dmd
 llvm-15 libclang-15-dev
+libx11-dev
