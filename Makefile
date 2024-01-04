@@ -41,10 +41,12 @@ bin/$(MODULE): $(D) $(J) $(T) Makefile
 # doc
 .PHONY: doc
 doc: doc/yazyk_programmirovaniya_d.pdf doc/Programming_in_D.pdf \
-     doc/Bluebook.pdf
+     doc/Bluebook.pdf doc/198108_Byte_Magazine_Vol_06-08_Smalltalk.pdf
 
 doc/Bluebook.pdf:
 	$(CURL) $@ http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf
+doc/198108_Byte_Magazine_Vol_06-08_Smalltalk.pdf:
+	$(CURL) $@ https://vintageapple.org/byte/pdf/198108_Byte_Magazine_Vol_06-08_Smalltalk.pdf
 
 doc/yazyk_programmirovaniya_d.pdf:
 	$(CURL) $@ https://www.k0d.cc/storage/books/D/yazyk_programmirovaniya_d.pdf
