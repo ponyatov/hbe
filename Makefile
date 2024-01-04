@@ -40,7 +40,11 @@ bin/$(MODULE): $(D) $(J) $(T) Makefile
 
 # doc
 .PHONY: doc
-doc: doc/yazyk_programmirovaniya_d.pdf doc/Programming_in_D.pdf
+doc: doc/yazyk_programmirovaniya_d.pdf doc/Programming_in_D.pdf \
+     doc/Bluebook.pdf
+
+doc/Bluebook.pdf:
+	$(CURL) $@ http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf
 
 doc/yazyk_programmirovaniya_d.pdf:
 	$(CURL) $@ https://www.k0d.cc/storage/books/D/yazyk_programmirovaniya_d.pdf
@@ -59,9 +63,11 @@ update:
 gz: ref
 
 .PHONY: ref
-ref: ref/strongtalk/vm/oops/klass.hpp
+ref: ref/strongtalk/vm/oops/klass.hpp ref/dbanay/README.md
 ref/strongtalk/vm/oops/klass.hpp: $(GZ)/StrongtalkV2.zip
 	unzip -d ref $< && touch $@
+ref/dbanay/README.md:
+	git clone -o gh --depth 1 https://github.com/dbanay/Smalltalk.git ref/dbanay
 
 $(GZ)/StrongtalkV2.zip:
 	$(CURL) $@ https://storage.googleapis.com/google-code-archive-source/v2/code.google.com/strongtalk/source-archive.zip
