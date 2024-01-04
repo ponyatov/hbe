@@ -1,3 +1,23 @@
 {
-    
+    "name":          "hbe",
+    "description":   "home built engine",
+    "homepage":      "https://github.com/ponyatov/d",
+    "authors":      ["Dmitry Ponyatov <dponyatov@gmail.com>"],
+    "copyright":     "Copyright © 2023, Dmitry Ponyatov <dponyatov@gmail.com>",
+    "license":       "MIT",
+    "targetType":    "executable",
+    "targetPath":    "bin",
+    "dependencies": {
+        "pegged": "~>0.4.9",
+        "bindbc-sdl": "~>1.4.4"
+    },
+    "subConfigurations": {
+        "bindbc-sdl": "static"
+    },
+    "libs": [
+        "SDL2", "SDL2_ttf"
+    ],
+    "stringImportPaths": [
+        "/usr/share/fonts/truetype"
+    ]
 }
