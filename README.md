@@ -1,5 +1,5 @@
 # `hbe`
-## home built engine
+## Smalltalk-80: home built engine
 
 (c) Dmitry Ponyatov <<dponyatov@gmail.com>> 2023 MIT
 

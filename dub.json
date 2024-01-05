@@ -1,19 +1,28 @@
 {
-    "name":          "hbe",
-    "description":   "home built engine",
-    "homepage":      "https://github.com/ponyatov/d",
-    "authors":      ["Dmitry Ponyatov <dponyatov@gmail.com>"],
-    "copyright":     "Copyright © 2023, Dmitry Ponyatov <dponyatov@gmail.com>",
-    "license":       "MIT",
-    "targetType":    "executable",
-    "targetPath":    "bin",
+    "name":           "hbe",
+    "description":    "Smalltalk-80: home built engine",
+    "homepage":       "https://github.com/ponyatov/hbe",
+    "authors":       [
+                        "Dmitry Ponyatov <dponyatov@gmail.com>",
+                        "Dan Banay <dbanay@gmail.com>"
+                    ],
+    "copyright":      "Copyright © 2023, Dmitry Ponyatov <dponyatov@gmail.com>",
+    "license":        "MIT",
+    "targetType":     "executable",
+    "targetPath":     "bin",
+    "mainSourceFile": "src/main.d",
     "dependencies": {
         "pegged": "~>0.4.9",
         "llvm-d": "~>3.0.0",
-        "xlib-d": "~>0.3.0"
+        "xlib-d": "~>0.3.0",
+        "bindbc-sdl": "~>1.4.4"
+    },
+    "subConfigurations": {
+        "bindbc-sdl": "static"
     },
     "libs": [
-        "x11"
+        "SDL2", "SDL2_ttf",
+        "X11", "X11-xcb"
     ],
     "stringImportPaths": [
         "/usr/share/fonts/truetype"

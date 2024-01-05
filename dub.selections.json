@@ -4,6 +4,7 @@
 		"bindbc-common": "0.1.2",
 		"bindbc-loader": "1.1.3",
 		"bindbc-sdl": "1.4.4",
+		"llvm-d": "3.0.0",
 		"pegged": "0.4.9",
 		"xlib-d": "0.3.0"
 	}
