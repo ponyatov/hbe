@@ -10,6 +10,12 @@
                     "args": {"text": "\u000D clear ; LANG=C make run \u000D"}}]}
     ],
 
+    // file
+    "files.associations": {
+        "*.sources": "smalltalk",
+        "*.changes": "smalltalk",
+    },
+
     // editor
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
