@@ -30,7 +30,8 @@
 
 // Well known oops for various objects in an image
 
-// initializeGuaranteedPointers  G&R pg. 576
+// p.576/598
+// initializeGuaranteedPointers
 
 // UndefinedObject and Booleans
 static const int NilPointer = 2;

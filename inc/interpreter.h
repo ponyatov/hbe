@@ -1352,7 +1352,7 @@ private:
     
     // p.575/597
     // initializeSmallIntegers
-    // SmallIntegers"
+    // SmallIntegers
     static const int MinusOnePointer = 65535;
     static const int ZeroPointer = 1;
     static const int OnePointer = 3;

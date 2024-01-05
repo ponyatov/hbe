@@ -41,5 +41,9 @@
     // D
     "d.dubPath": "/usr/bin/dub",
     "d.dmdPath": "/usr/bin/dmd",
-    "d.dubCompiler": "/usr/bin/dmd"
+    "d.dubCompiler": "/usr/bin/dmd",
+    "dscanner.ignoredKeys": [
+        "dscanner.style.phobos_naming_convention",
+        "dscanner.style.number_literals",
+    ],
 }

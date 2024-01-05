@@ -13,4 +13,9 @@ import std.stdio;
 
 void main(string[] arg) {
     writeln(arg);
+    writefln("%d %d %d %d", //
+            initializeSmallIntegers.MinusOnePointer,
+            initializeSmallIntegers.ZeroPointer,
+            initializeSmallIntegers.OnePointer,
+            initializeSmallIntegers.TwoPointer);
 }
