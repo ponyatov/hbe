@@ -21,6 +21,7 @@ RUN  = dub run   --compiler=$(DC)
 
 # src
 D += $(wildcard src/*.d)
+H += $(wildcard inc/*.h*)
 
 # all
 .PHONY: all run
@@ -30,7 +31,9 @@ run: $(D) $(J) $(T)
 
 # format
 .PHONY: format
-format: tmp/format_d
+format: tmp/format_c tmp/format_d
+tmp/format_c: $(C) $(H)
+	clang-format -style=file -i $? && touch $@
 tmp/format_d: $(D)
 	$(RUN) dfmt -- -i $? && touch $@
 
@@ -41,17 +44,32 @@ bin/$(MODULE): $(D) $(J) $(T) Makefile
 # doc
 .PHONY: doc
 doc: doc/yazyk_programmirovaniya_d.pdf doc/Programming_in_D.pdf \
-     doc/Bluebook_Smalltalk-80.pdf doc/198108_Byte_Magazine_Vol_06-08_Smalltalk.pdf
+     doc/Bluebook_Smalltalk-80.pdf doc/198108_Byte_Magazine_Vol_06-08_Smalltalk.pdf \
+	 doc/InsideSmalltalk_1.pdf doc/InsideSmalltalk_2.pdf \
+	 doc/RedBook_gui.pdf doc/GreenBook_history.pdf
 
 doc/Bluebook_Smalltalk-80.pdf:
 	$(CURL) $@ http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf
 doc/198108_Byte_Magazine_Vol_06-08_Smalltalk.pdf:
 	$(CURL) $@ https://vintageapple.org/byte/pdf/198108_Byte_Magazine_Vol_06-08_Smalltalk.pdf
+doc/InsideSmalltalk_1.pdf:
+	$(CURL) $@ http://rmod-files.lille.inria.fr/FreeBooks/InsideST/InsideSmalltalk.pdf
+doc/InsideSmalltalk_2.pdf:
+	$(CURL) $@ http://rmod-files.lille.inria.fr/FreeBooks/InsideST/InsideSmalltalkII.pdf
+
+doc/RedBook_gui.pdf:
+	$(CURL) $@ http://rmod-files.lille.inria.fr/FreeBooks/TheInteractiveProgrammingEnv/TheInteractiveProgrammingEnv.pdf
+doc/GreenBook_history.pdf:
+	$(CURL) $@ https://rmod-files.lille.inria.fr/FreeBooks/BitsOfHistory/BitsOfHistory.pdf
 
 doc/yazyk_programmirovaniya_d.pdf:
 	$(CURL) $@ https://www.k0d.cc/storage/books/D/yazyk_programmirovaniya_d.pdf
 doc/Programming_in_D.pdf:
 	$(CURL) $@ http://ddili.org/ders/d.en/Programming_in_D.pdf
+
+.PHONY: doxy
+doxy: .doxygen $(C) $(D)
+	rm -rf docs ; doxygen $< 1>/dev/null
 
 # install
 .PHONY: install update doc gz
