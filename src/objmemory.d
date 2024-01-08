@@ -1,5 +1,8 @@
 module objmemory;
 
+/// @defgroup objmemory objmemory
+/// @{
+
 /// Mark and sweep collection when memory full
 version (GC_MARK_SWEEP) {
 }
@@ -50,7 +53,19 @@ version (GC_MARK_SWEEP) {
 import hal;
 import filesystem;
 
-class ObjectMemory {
+interface BCIInterface {
+    static int freeOops;
+    final int oopsLeft() {
+        return freeOops;
+    }
+
+    static uint freeWords;
+    final uint coreLeft() {
+        return freeWords;
+    }
+}
+
+class ObjectMemory : BCIInterface {
     version (GC_MARK_SWEEP) {
         this(IHardwareAbstractionLayer* halInterface,
                 IGCNotification* notification = 0) {
@@ -66,6 +81,44 @@ class ObjectMemory {
 
     bool saveSnapshot(IFileSystem* fileSystem, const char* imageFileName) {
         return false;
+    }
+
+    void garbageCollect() {
+    }
+
+    // storePointer:ofObject:withValue:
+    int storePointer_ofObject_withValue(int fieldIndex,
+            int objectPointer, int valuePointer) {
+        return -1; /* TODO */
+    }
+
+    // storeWord:ofObject:withValue:
+    int storeWord_ofObject_withValue(int wordIndex,
+            int objectPointer, int valueWord) {
+        return -1; /* TODO */
+    }
+
+    // increaseReferencesTo:
+    void increaseReferencesTo(int objectPointer) {
+        /* "source"
+         self countUp: objectPointer
+        */
+        version (GC_REF_COUNT)
+            countUp(objectPointer);
+    }
+
+    // initialInstanceOf:
+    int initialInstanceOf(int classPointer) {
+        return -1; /* TODO */
+    }
+
+    // decreaseReferencesTo:
+    void decreaseReferencesTo(int objectPointer) {
+        /* "source"
+         self countDown: objectPointer
+        */
+        version (GC_REF_COUNT)
+            countDown(objectPointer);
     }
 
 }
