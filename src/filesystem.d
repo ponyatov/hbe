@@ -4,7 +4,9 @@ module filesystem;
 /// @brief file i/o
 
 /// @ingroup file
+/// @brief common interface for @ref IFile / @ref IDir
 interface IFileSystem {
+
     /// @brief create new item
     /// @param in `string` name
     /// @returns `int` handle
@@ -21,9 +23,16 @@ interface IFileSystem {
 
     /// @brief rename item
     bool rename(string old_name, string new_name);
+
     /// @brief delete item
     bool del(string file_name);
 
+    /// commit changes to OS fs
+    bool flush(int file_handle);
+
+    /// @name Error handling
+    const int last_error();
+    const char* error_text(int code);
 }
 
 /// @ingroup file
@@ -39,11 +48,13 @@ interface IFile : IFileSystem {
     /// @name size manipulations
     bool truncate(int file_handle, int length);
     int size(int file_handle);
-    bool flush(int file_handle);
 
 }
 
 /// @ingroup file
 /// @brief Directory specific operations
 interface IDir : IFileSystem {
+    /// enumerate items
+    /// @param in callback function
+    void iterate(void function(string name) callback);
 }
