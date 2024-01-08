@@ -1,9 +1,9 @@
 module filesystem;
 
-/// @defgroup file file
+/// @defgroup filesystem filesystem
 /// @brief file i/o
 
-/// @ingroup file
+/// @ingroup filesystem
 /// @brief common interface for @ref IFile / @ref IDir
 interface IFileSystem {
 
@@ -35,7 +35,7 @@ interface IFileSystem {
     const char* error_text(int code);
 }
 
-/// @ingroup file
+/// @ingroup filesystem
 /// @brief File specific operations
 interface IFile : IFileSystem {
 
@@ -51,10 +51,16 @@ interface IFile : IFileSystem {
 
 }
 
-/// @ingroup file
+/// @ingroup filesystem
 /// @brief Directory specific operations
 interface IDir : IFileSystem {
     /// enumerate items
     /// @param in callback function
     void iterate(void function(string name) callback);
+}
+
+/// @ingroup filesystem
+/// @brief multiplatform Path operations
+interface IPath {
+    // this(string name);
 }
