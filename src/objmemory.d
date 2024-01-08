@@ -47,4 +47,25 @@ version (GC_MARK_SWEEP) {
     }
 }
 
-// IGCNotification
+import hal;
+import filesystem;
+
+class ObjectMemory {
+    version (GC_MARK_SWEEP) {
+        this(IHardwareAbstractionLayer* halInterface,
+                IGCNotification* notification = 0) {
+        }
+    } else {
+        this(IHardwareAbstractionLayer* halInterface) {
+        }
+    }
+
+    bool loadSnapshot(IFileSystem* fileSystem, const char* imageFileName) {
+        return false;
+    }
+
+    bool saveSnapshot(IFileSystem* fileSystem, const char* imageFileName) {
+        return false;
+    }
+
+}

@@ -1,1 +1,5 @@
 module hal;
+
+interface IHardwareAbstractionLayer {
+
+}
