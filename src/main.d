@@ -18,4 +18,5 @@ void main(string[] arg) {
             initializeSmallIntegers.ZeroPointer,
             initializeSmallIntegers.OnePointer,
             initializeSmallIntegers.TwoPointer);
+    writefln("RealWordMemory %s", RealWordMemory.SegmentSize);
 }
