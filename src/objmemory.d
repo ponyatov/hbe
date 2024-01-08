@@ -2,6 +2,12 @@
 module objmemory;
 
 import realwordmemory;
+import oops;
+
+alias objectPointer = short;
+alias classPointer = objectPointer;
+alias SmallInteger = short;
+alias BitIndex = ubyte;
 
 /// @defgroup objmemory objmemory
 /// @{
@@ -80,6 +86,11 @@ private:
 
 }
 
+enum ObjectTable:ushort{
+    Segment=realwordmemory.Segment.Count - 1,
+    Start=0
+    };
+
 /// @ingroup objmemory
 abstract class ObjectMemory : BCIInterface {
 
@@ -127,14 +138,14 @@ public:
     }
 
     // isIntegerValue:
-    bool isIntegerValue(int valueWord) {
+    bool isIntegerValue(SmallInteger valueWord) {
         /* "source"
          "ERROR: G&R really cock this up"
          "dbanay - still broken in July 1985 ed!"
          ^valueWord >= -16384 and: [valueWord <= 16383]
         */
-
-        return valueWord >= -16384 && valueWord <= 16383;
+        return (valueWord & 1) == 1;
+        // return valueWord >= -16384 && valueWord <= 16383;
     }
 
     //  // fetchWord:ofObject:
@@ -148,15 +159,15 @@ public:
     //         return heapChunkOf_word(objectPointer, HeaderSize + wordIndex);
     //     }
 
-    // integerValueOf:
-    int integerValueOf(int objectPointer) {
+    /// integerValueOf:
+    // int integerValueOf(int objectPointer) {
+    SmallInteger integerValueOf(objectPointer op) {
         /* "source"
             ^objectPointer/2
         */
-
-        return cast(short)(objectPointer & 0xfffe) / 2;
-        // Right shifting a negative number is undefined according to the
-        // standard. return ((std::int16_t) objectPointer) >> 1;
+        return op / 2;
+        // return cast(short)(objectPointer & 0xfffe) / 2;
+        // Right shifting a negative number is undefined.
     }
 
     // swapPointersOf:and:
@@ -210,8 +221,9 @@ public:
     //     return heapChunkOf_word(objectPointer, HeaderSize + fieldIndex);
     // }
 
-    // // fetchClassOf:
+    // fetchClassOf:
     //  int fetchClassOf(int objectPointer) {
+        int fetchClassOf(objectPointer op) {
     //     /* Note that fetchClassOf:objectPointer returns IntegerClass (the object
     //        table index of SmallInteger) if its argument is an immediate integer.
     //        G&R pg 686 */
@@ -221,10 +233,9 @@ public:
     //          ifFalse: [^self classBitsOf: objectPointer]
     //     */
 
-    //     if (isIntegerObject(objectPointer)) return ClassSmallInteger;
-
-    //     return classBitsOf(objectPointer);
-    // }
+        if (isIntegerObject(op)) return Class.SmallInteger;
+else return  classBitsOf(op);
+    }
 
     // integerObjectOf:
     int integerObjectOf(int value) {
@@ -263,7 +274,9 @@ public:
     /// @name ObjectPointers
 
     // cantBeIntegerObject:
-    void cantBeIntegerObject(int objectPointer);
+    void cantBeIntegerObject(objectPointer op) {
+        assert(!isIntegerObject(op));
+    }
 
     version (GC_MARK_SWEEP) {
         void addRoot(int rootObjectPointer) // dbanay
@@ -378,13 +391,31 @@ private:
 
     /// @name ObjectTableEnt
 
-    // // segmentBitsOf:
-    // int segmentBitsOf(int objectPointer) {
-    //     /* "source"
-    //      ^self ot: objectPointer bits: 12 to: 15
-    //     */
-    //     return ot_bits_to(objectPointer, 12, 15);
-    // }
+    // segmentBitsOf:
+    Segment segmentBitsOf(objectPointer op) {
+        /* "source"
+         ^self ot: objectPointer bits: 12 to: 15
+        */
+        return ot_bits_to(op, 12, 15);
+    }
+
+    // ot:bits:to:
+     Segment ot_bits_to(objectPointer op, BitIndex first,
+                          BitIndex last) {
+        /* "source"
+         self cantBeIntegerObject: objectPointer.
+         ^wordMemory segment: ObjectTableSegment
+             word: ObjectTableStart + objectPointer
+             bits: firstBitIndex
+             to: lastBitIndex
+        */
+
+        cantBeIntegerObject(op);
+        return wordMemory.segment_word_bits_to(cast(ushort)ObjectTable.Segment,
+                                               ObjectTable.Start + cast(ushort)op,
+                                               first, last);
+    }
+
 
     // // heapChunkOf:byte:put:
     //  int heapChunkOf_byte_put(int objectPointer, int offset, int value) {
@@ -408,15 +439,15 @@ private:
     //     return ot_bits_to_put(objectPointer, 9, 9, value);
     // }
 
-    // // heapChunkOf:word:
-    //  int heapChunkOf_word(int objectPointer, int offset) {
+    // heapChunkOf:word:
+     short heapChunkOf_word(objectPointer op , short offset) {
     //     /* "source"
     //      ^wordMemory segment: (self segmentBitsOf: objectPointer)
     //          word: ((self locationBitsOf: objectPointer) + offset)
     //     */
-    //     return wordMemory.segment_word(segmentBitsOf(objectPointer),
-    //                                    locationBitsOf(objectPointer) + offset);
-    // }
+        return wordMemory.segment_word(segmentBitsOf(op),
+                                       locationBitsOf(op) + offset);
+    }
 
     // // segmentBitsOf:put:
     //  int segmentBitsOf_put(int objectPointer, int value) {
@@ -490,6 +521,14 @@ private:
 
     //     return ot_bits_to_put(objectPointer, 10, 10, value);
     // }
+
+    // classBitsOf:
+     classPointer classBitsOf(objectPointer op) {
+        /* "source"
+         ^self heapChunkOf: objectPointer word: 1
+         */
+        return heapChunkOf_word(op, 1);
+    }
 
     // // classBitsOf:put:
     //  int classBitsOf_put(int objectPointer, int value) {

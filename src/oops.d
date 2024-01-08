@@ -22,15 +22,17 @@ module oops;
 /// </pre>
 /// @{
 
+import objmemory:classPointer;
+
 /// @name initializeGuaranteedPointers
 /// p.576/598
 /// @{
 
-enum UndefinedObject {
+enum UndefinedObject:classPointer {
     NilPointer = 2,
 }
 
-enum Booleans {
+enum Booleans:classPointer {
     FalsePointer = 4,
     TruePointer = 6,
 }
@@ -40,16 +42,16 @@ enum Root {
     // SmalltalkPointer = 25286, // SystemDictionary
 }
 
-enum Classes {
-    // ClassSmallInteger = 12,
-    ClassStringPointer = 14,
-    ClassArrayPointer = 16,
-    ClassMethodContextPointer = 22,
-    ClassBlockContextPointer = 24,
-    ClassPointPointer = 26,
-    ClassLargePositiveIntegerPointer = 28,
-    ClassMessagePointer = 32,
-    ClassCharacterPointer = 40, //
+enum Class:classPointer {
+    SmallInteger = 12,
+    StringPointer = 14,
+    ArrayPointer = 16,
+    MethodContextPointer = 22,
+    BlockContextPointer = 24,
+    PointPointer = 26,
+    LargePositiveIntegerPointer = 28,
+    MessagePointer = 32,
+    CharacterPointer = 40, //
     // ClassCompiledMethod = 34,
     // ClassSymbolPointer = 56,
     // ClassFloatPointer = 20,
