@@ -1,1 +1,4 @@
 module realwordmemory;
+
+class RealWordMemory {
+}

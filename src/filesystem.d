@@ -8,17 +8,17 @@ module filesystem;
 interface IFileSystem {
 
     /// @brief create new item
-    /// @param in `string` name
-    /// @returns `int` handle
+    /// @param name in `string`
+    /// @returns handle `int`
     int create(string name);
 
     /// @brief open existing item (mark in use)
-    /// @param in `string` name
-    /// @returns `int` handle
+    /// @param name in `string`
+    /// @returns handle `int`
     int open(string name);
 
     /// @brief close item (clear in use)
-    /// @param in file hanle
+    /// @param file_handle in file hanle
     int close(int file_handle);
 
     /// @brief rename item
