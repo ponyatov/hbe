@@ -13,6 +13,7 @@
     "mainSourceFile": "src/main.d",
     "dependencies": {
         "pegged": "~>0.4.9",
+        "readline": "~>0.3.0",
         "llvm-d": "~>3.0.0",
         "xlib-d": "~>0.3.0",
         "bindbc-sdl": "~>1.4.4"
@@ -21,6 +22,7 @@
         "bindbc-sdl": "static"
     },
     "libs": [
+        "readline",
         "SDL2", "SDL2_ttf",
         "X11", "X11-xcb"
     ],

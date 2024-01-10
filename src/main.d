@@ -8,6 +8,8 @@ import filesystem;
 import posixfilesystem;
 import objmemory;
 import realwordmemory;
+import  forth;
+
 
 import std.stdio;
 
@@ -20,4 +22,5 @@ void main(string[] arg) {
             initializeSmallIntegers.TwoPointer);
     writefln("RealWordMemory %s", Segment.Size);
     writefln("64K: %s", cast(short) 0xFFFE);
+    forth.repl;
 }
