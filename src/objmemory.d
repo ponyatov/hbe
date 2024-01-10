@@ -86,10 +86,10 @@ private:
 
 }
 
-enum ObjectTable:ushort{
-    Segment=realwordmemory.Segment.Count - 1,
-    Start=0
-    };
+enum ObjectTable : ushort {
+    Segment = realwordmemory.Segment.Count - 1,
+    Start = 0
+};
 
 /// @ingroup objmemory
 abstract class ObjectMemory : BCIInterface {
@@ -221,21 +221,21 @@ public:
     //     return heapChunkOf_word(objectPointer, HeaderSize + fieldIndex);
     // }
 
-//     // fetchClassOf:
-//     //  int fetchClassOf(int objectPointer) {
-//         int fetchClassOf(objectPointer op) {
-//     //     /* Note that fetchClassOf:objectPointer returns IntegerClass (the object
-//     //        table index of SmallInteger) if its argument is an immediate integer.
-//     //        G&R pg 686 */
-//     //     /* "source"
-//     //      (self isIntegerObject: objectPointer)
-//     //          ifTrue: [^IntegerClass] "ERROR IntegerClass not defined"
-//     //          ifFalse: [^self classBitsOf: objectPointer]
-//     //     */
+    //     // fetchClassOf:
+    //     //  int fetchClassOf(int objectPointer) {
+    //         int fetchClassOf(objectPointer op) {
+    //     //     /* Note that fetchClassOf:objectPointer returns IntegerClass (the object
+    //     //        table index of SmallInteger) if its argument is an immediate integer.
+    //     //        G&R pg 686 */
+    //     //     /* "source"
+    //     //      (self isIntegerObject: objectPointer)
+    //     //          ifTrue: [^IntegerClass] "ERROR IntegerClass not defined"
+    //     //          ifFalse: [^self classBitsOf: objectPointer]
+    //     //     */
 
-//         if (isIntegerObject(op)) return Class.SmallInteger;
-// else return  classBitsOf(op);
-//     }
+    //         if (isIntegerObject(op)) return Class.SmallInteger;
+    // else return  classBitsOf(op);
+    //     }
 
     // integerObjectOf:
     int integerObjectOf(int value) {
@@ -415,7 +415,6 @@ private:
     //                                            ObjectTable.Start + cast(ushort)op,
     //                                            first, last);
     // }
-
 
     // // heapChunkOf:byte:put:
     //  int heapChunkOf_byte_put(int objectPointer, int offset, int value) {

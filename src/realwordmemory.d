@@ -2,7 +2,7 @@ module realwordmemory;
 
 /// Memory manager for x86 real mode (emulated)
 
-enum Segment:ushort{
+enum Segment : ushort {
     /// number of sequential segments * SegmentSize = 1Mb
     Count = 16, // 16384 = 1Gb
     /// segment size /in 16-bit words/ = 65536
@@ -15,7 +15,8 @@ class RealWordMemory {
 public:
 
     /// RealWordMemory() {}
-    this(){}
+    this() {
+    }
 
     ushort segment_word(ushort s, ushort w) {
         assert(s < Segment.Count);
@@ -36,7 +37,6 @@ public:
     //     return shift & mask;
     // }
 
-
-    private:
+private:
     ushort[Segment.Count][Segment.Size] memory;
 }

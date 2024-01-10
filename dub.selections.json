@@ -6,6 +6,7 @@
 		"bindbc-sdl": "1.4.4",
 		"llvm-d": "3.0.0",
 		"pegged": "0.4.9",
+		"readline": "0.3.0",
 		"xlib-d": "0.3.0"
 	}
 }

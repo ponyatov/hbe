@@ -8,8 +8,7 @@ import filesystem;
 import posixfilesystem;
 import objmemory;
 import realwordmemory;
-import  forth;
-
+import forth;
 
 import std.stdio;
 
